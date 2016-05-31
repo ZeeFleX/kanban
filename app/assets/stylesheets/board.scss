@@ -1,0 +1,37 @@
+// Place all the styles related to the board controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.k-board{
+	overflow: hidden;
+	.k-tracker{
+		overflow: hidden;
+		border-bottom:solid 1px #666;
+		padding:20px 0;
+		.k-column{
+			box-sizing:border-box;
+			-moz-box-sizing:border-box;
+			width:16.666%;
+			float:left;
+			padding:0 10px;
+			&:first-child{
+				border-left: none;
+			}
+			.k-tasks{
+				.k-task{
+					background:#fff;
+					box-sizing:border-box;
+					-moz-box-sizing:border-box;
+					border-radius:3px;
+					border:solid 1px #aaa;
+					padding: 0 10px;
+					cursor:pointer;
+					margin-bottom:10px;
+					-webkit-user-select:none;
+					h4{
+						margin:10px 0;
+					}
+				}
+			}
+		}
+	}
+}

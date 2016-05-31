@@ -1,0 +1,14 @@
+h1 Доска на рельсах
+div.devices ng-controller="BoardCtrl"
+
+	.k-board
+		.k-tracker( ng-repeat="tracker in trackers" )
+			h2( ng-bind="tracker" )
+
+			.k-column( ng-repeat="status in statuses" )
+				h3( ng-bind="status" )
+				.k-tasks
+
+					.k-task( ng-repeat="task in tasks | filter:{tracker: tracker, status: status}" )
+						h4( ng-bind="task.title" )
+						p( ng-bind="task.description" )
