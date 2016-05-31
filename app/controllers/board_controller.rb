@@ -23,7 +23,7 @@ class BoardController < ApplicationController
 				id: 3,
 				title: 'Набросать болванку',
 				description: 'На которую будем натягивать потом Angular',
-				status: 'Done',
+				status: 'Closed',
 				tracker: 'normal'
 			},
 			{
