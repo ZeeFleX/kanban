@@ -11,14 +11,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531184244) do
+ActiveRecord::Schema.define(version: 20160601124858) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
     t.string   "address",    limit: 255
     t.string   "logo",       limit: 255
+    t.integer  "country_id", limit: 4
+    t.integer  "city_id",    limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "accounts_options", force: :cascade do |t|
+    t.text     "val",        limit: 65535
+    t.integer  "account_id", limit: 4
+    t.integer  "option_id",  limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "accounts_users", force: :cascade do |t|
+    t.integer "account_id", limit: 4
+    t.integer "user_id",    limit: 4
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "country_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "phone_code", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "optgroups", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "options", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
+    t.integer  "optgroup_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -29,6 +72,16 @@ ActiveRecord::Schema.define(version: 20160531184244) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "user_id",    limit: 4
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 65535
+    t.integer  "reporter_id", limit: 4
+    t.integer  "assignee_id", limit: 4
+    t.integer  "account_id",  limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|
