@@ -3,14 +3,13 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .k-board{
 	overflow: hidden;
-	.k-tracker{
+	.k-swimlane{
 		overflow: hidden;
 		border-bottom:solid 1px #666;
 		padding:20px 0;
-		.k-column{
+		.k-status{
 			box-sizing:border-box;
 			-moz-box-sizing:border-box;
-			width:16.666%;
 			float:left;
 			padding:0 10px;
 			&:first-child{

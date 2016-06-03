@@ -1,4 +1,4 @@
 class ProjectsOption < ActiveRecord::Base
-	belongs_to :account
+	belongs_to :project
 	belongs_to :option
 end

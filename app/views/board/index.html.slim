@@ -2,13 +2,13 @@ h1 Доска на рельсах
 div.devices ng-controller="BoardCtrl"
 
 	.k-board
-		.k-tracker( ng-repeat="tracker in trackers" )
-			h2( ng-bind="tracker" )
+		.k-swimlane( ng-repeat="swimlane in swimlanes" )
+			h2( ng-bind="swimlane.name" )
 
-			.k-column( ng-repeat="status in statuses" )
-				h3( ng-bind="status" )
+			.k-status( ng-style="css.statusStyle" ng-repeat="status in statuses" )
+				h3( ng-bind="status.name" )
 				.k-tasks
 
-					.k-task( ng-repeat="task in tasks | filter:{tracker: tracker, status: status}" )
+					.k-task( ng-repeat="task in tasks | filter:{tracker_id: swimlane.id, status_id: status.id}" )
 						h4( ng-bind="task.title" )
 						p( ng-bind="task.description" )

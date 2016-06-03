@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'board/index'
   get 'board/show'
+  get 'board/get_board'
 
   get 'index/index'
   get 'index/show'
