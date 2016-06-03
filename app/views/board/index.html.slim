@@ -7,7 +7,7 @@ div.devices ng-controller="BoardCtrl"
 
 			.k-status( ng-style="css.statusStyle" ng-repeat="status in statuses" )
 				h3( ng-bind="status.name" )
-				.k-tasks
+				.k-tasks( ui-sortable ng-model="tasks" )
 
 					.k-task( ng-repeat="task in tasks | filter:{tracker_id: swimlane.id, status_id: status.id}" )
 						h4( ng-bind="task.title" )

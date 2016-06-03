@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var kanbanApp = angular.module('kanbanApp', []);
+var kanbanApp = angular.module('kanbanApp', ['ui.sortable']);
 
 //Это роуты, вдруг когда-нибудь имена контроллеров поменяются
 kanbanApp.routes = {
