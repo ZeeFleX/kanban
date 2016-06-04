@@ -3,6 +3,10 @@ kanbanApp.controller('BoardCtrl', function($scope, $http) {
 	var routes = kanbanApp.routes;
 	$scope.css = {};
 
+	$scope.sortableOptions = {
+		connectWith: ".k-tasks"
+	}
+
 	$http({
 
 	  method: 'GET',
@@ -15,7 +19,8 @@ kanbanApp.controller('BoardCtrl', function($scope, $http) {
 
 		$scope.swimlanes = response.data.swimlanes;
 		$scope.statuses = response.data.statuses;
-    $scope.tasks = response.data.tasks;
+
+    console.log($scope.statuses);
 
     $scope.css.statusStyle = {
     	width: 100 / $scope.statuses.length + '%'
