@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :tasks
+
   get 'board/index'
   get 'board/show'
   get 'board/get_board'
