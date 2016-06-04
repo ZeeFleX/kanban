@@ -5,6 +5,7 @@ class BoardController < ApplicationController
   end
 
   def show
+    
   end
 
   def get_board
