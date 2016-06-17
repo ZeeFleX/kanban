@@ -17,15 +17,26 @@ class TasksController < ApplicationController
   end
 
   def update
+    statuses = params[:_json]
 
-    task = Task.find( params[:task_id] )
-    task.status_id = params[:status_id]
+    tasks = {}
 
-    puts task.status_id
-    render json: {success: true} if task.save
+
+
+    statuses.each do |status|
+      status['tasks'].each do |task|
+        tasks[task['id']] = task
+        task.delete('id')
+      end
+    end
+
+    puts tasks.inspect
+
+    Task.update(tasks.keys, tasks.values)
 
   end
 
   def destroy
   end
+
 end

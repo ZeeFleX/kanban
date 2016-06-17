@@ -20,7 +20,7 @@ class BoardController < ApplicationController
 
   	tasks = Task.where(
   		project_id: User.find(params[:user_id]).projects.where(id: 1)
-  	)
+  	).order(:sort)
 
     statuses = statuses.to_a.map(&:serializable_hash)
     tasks = tasks.to_a.map(&:serializable_hash)
@@ -36,7 +36,7 @@ class BoardController < ApplicationController
 
   	data = {
   		:swimlanes => swimlanes,
-  		:statuses => statuses,
+  		:statuses => statuses
   	}
 
   	render json: data

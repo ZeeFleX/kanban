@@ -7,61 +7,80 @@ kanbanApp.controller('BoardCtrl', function($scope, $http) {
 	function createOptions (status_id) {
     var options = {
       connectWith: ".k-tasks",
+      cursor: "move",
+      revert: 200,
       activate: function() {
-        //console.log(status_id + ": activate");
+
       },
       beforeStop: function() {
-        //console.log(status_id + ": beforeStop");
+
       },
       change: function() {
-        //console.log(status_id + ": change");
+
       },
       create: function() {
-        //console.log(status_id + ": create");
+
       },
       deactivate: function() {
-        //console.log(status_id + ": deactivate");
+
       },
       out: function() {
-        //console.log(status_id + ": out");
+
       },
-      over: function() {
-        //console.log(status_id + ": over");
+      over: function( e, ui ) {
+        $.each( $scope.statuses, function(key, status){
+          if (status.id == status_id){
+            status.over = true;
+          } else{
+            status.over = false;
+          }
+          $scope.$apply();
+        })
       },
       receive: function( e, ui ) {
-        var	task_id = ui.item[0].id;
-
-        $http({
-				  method: 'PUT',
-				  url: '/tasks/update',
-				  data:  {
-				  	task_id: task_id,
-				  	status_id: status_id
-				  },
-
-				}).then(function successCallback(response) {
-					console.log(response);
-			  }, function errorCallback(response) {
-			    console.log(response);
-			  });
-      },
-      remove: function() {
-        //console.log(status_id + ": remove");
-      },
-      sort: function() {
-        //console.log(status_id + ": sort");
-      },
-      start: function() {
-        //console.log(status_id + ": start");
-      },
-      stop: function( e, ui ) {
         
       },
-      update: function() {
-        //console.log(status_id + ": update");
+      remove: function() {
+
+      },
+      sort: function( e, ui ) {
+
+      },
+      start: function() {
+
+      },
+      stop: function( e, ui ) {
+
+        $.each($scope.statuses, function(sKey, status){
+          $.each(status.tasks, function(tKey, task){
+            task.status_id = status.id;
+            task.sort = tKey;
+          });
+        });
+
+        $.each( $scope.statuses, function(key, status){
+          status.over = false;
+        }); 
+        sendTasks($scope.statuses);
+
+      },
+      update: function( e, ui ) {
+   
       }
     };
     return options;
+
+    function sendTasks(obj){
+      $http({
+        method: 'PUT',
+        url: '/tasks/update',
+        data: obj,
+      }).then(function successCallback(response) {
+        //console.log(response);
+      }, function errorCallback(response) {
+        //console.log(response);
+      });
+    }
   }
 
 	$http({

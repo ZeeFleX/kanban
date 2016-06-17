@@ -4,7 +4,6 @@
 .k-board{
 	overflow: hidden;
 	.k-swimlane{
-		overflow: hidden;
 		border-bottom:solid 1px #666;
 		padding:20px 0;
 		.k-status{
@@ -12,8 +11,13 @@
 			-moz-box-sizing:border-box;
 			float:left;
 			padding:0 10px;
+			border-radius:4px;
+			transition: background-color 0.2s ease;
 			&:first-child{
 				border-left: none;
+			}
+			&.over{
+				background:#ddd;
 			}
 			.k-tasks{
 				min-height:500px;
