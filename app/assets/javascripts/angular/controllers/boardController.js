@@ -1,79 +1,71 @@
-kanbanApp.controller('BoardCtrl', function($scope, $http) {
+kanbanApp.controller('BoardCtrl', function($scope, $http, taskModal, boardService) {
 
-	var routes = kanbanApp.routes;
-	$scope.css = {};
-	$scope.sortableOptions = [];
+  $scope.task = {};
 
-	function createOptions (status_id) {
-    var options = {
-      connectWith: ".k-tasks",
-      cursor: "move",
-      revert: 200,
-      over: function( e, ui ) {
-        $.each( $scope.swimlanes, function(swimKey, swimlane){
-          
-          $.each( swimlane.statuses, function(statKey, status){
-            console.log( status_id );
-            if (swimlane.id + '-' + status.id == status_id){
-              status.over = true;
-            } else{
-              status.over = false;
-            }
-            $scope.$apply();
-          })
+  $scope.createTask = function(swimlane_id, status_id){
 
-        });
-      },
-      stop: function( e, ui ) {
-        $.each( $scope.swimlanes, function(swimKey, swimlane){
-
-          $.each(swimlane.statuses, function(statKey, status){
-            if( status.swimlane_id == swimlane.id ){
-              $.each(status.tasks, function(taskKey, task){
-                  task.swimlane_id = swimlane.id;
-                  task.status_id = status.id;
-                  task.sort = taskKey;
-              });
-            }
-
-            status.over = false;
-
-          });
-
-        });
-
-        sendTasks($scope.swimlanes);
-      }
-    };
-    return options;
-
-    function sendTasks(obj){
-      $http({
-        method: 'PUT',
-        url: '/tasks/update',
-        data: obj,
-      }).then(function successCallback(response) {
-        //console.log(response);
-      }, function errorCallback(response) {
-        //console.log(response);
-      });
+    boardService.task = {
+      reporter_id: 1,
+      assignee_id: 1,
+      project_id: 1,
+      swimlane_id: swimlane_id,
+      status_id: status_id,
+      tracker_id: 1,
+      sort: 0
     }
+
+    taskModal.activate();
   }
 
-	$http({
+  var routes = kanbanApp.routes;
+  $scope.css = {};
+  $scope.sortableOptions = [];
 
-	  method: 'GET',
-	  url: '/board/get_board',
-	  params:  {
-	  	user_id: 1
-	  },
+  boardService.fn.getBoard( function(swimlanes){
+    $scope.swimlanes = swimlanes;
 
-	}).then(function successCallback(response) {
+    function createOptions (status_id) {
+      var options = {
+        connectWith: ".k-tasks",
+        cursor: "move",
+        revert: 200,
+        over: function( e, ui ) {
+          $.each( $scope.swimlanes, function(swimKey, swimlane){
+            
+            $.each( swimlane.statuses, function(statKey, status){
+              console.log( status_id );
+              if (swimlane.id + '-' + status.id == status_id){
+                status.over = true;
+              } else{
+                status.over = false;
+              }
+              $scope.$apply();
+            })
 
-		$scope.swimlanes = response.data.swimlanes;
+          });
+        },
+        stop: function( e, ui ) {
+          boardService.fn.sortTasks( $scope.swimlanes );
+          sendTasks( $scope.swimlanes );
+        }
+      };
+      return options;
+
+      function sendTasks(obj){
+        $http({
+          method: 'PUT',
+          url: '/tasks/update',
+          data: obj,
+        }).then(function successCallback(response) {
+
+        }, function errorCallback(response) {
+
+        });
+      }
+    }
 
     $scope.css.statusStyle = {
-    	width: 100 / $scope.swimlanes[0].statuses.length + '%'
+      width: 100 / $scope.swimlanes[0].statuses.length + '%'
     };
 
     $.each($scope.swimlanes, function(swimKey, swimlane){
@@ -83,10 +75,7 @@ kanbanApp.controller('BoardCtrl', function($scope, $http) {
       });
 
     });
-    
 
-  }, function errorCallback(response) {
-    console.log(data);
   });
 
 });

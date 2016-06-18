@@ -26,3 +26,7 @@ body{
 .clr{
 	clear:both;
 }
+
+.hidden{
+	display:none;
+}

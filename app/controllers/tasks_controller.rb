@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => [:update]
+  skip_before_filter :verify_authenticity_token, :only => [:create, :update]
 
   def index
   end
@@ -8,9 +8,18 @@ class TasksController < ApplicationController
   end
 
   def create
+    
+
+    task = Task.new(params[:task]);
+
+    render json: task if task.save
+
   end
 
   def show
+    task = Task.find(1)
+
+    render json: task
   end
 
   def edit

@@ -1,6 +1,6 @@
 h1 Доска на рельсах
 div.devices ng-controller="BoardCtrl"
-
+	
 	.k-board
 		.k-swimlane( ng-repeat="swimlane in swimlanes" )
 			h2( ng-bind="swimlane.name" )
@@ -8,6 +8,7 @@ div.devices ng-controller="BoardCtrl"
 			.k-status( ng-style="css.statusStyle" ng-repeat="status in swimlane.statuses" ng-class="{over : status.over}" id="{{'status-' + status.id}}" )
 				h3( ng-bind="status.name" )
 				.k-tasks( ui-sortable="sortableOptions[swimlane.id + '-' + status.id]" ng-model="status.tasks" )
+					a( href ng-click="createTask(swimlane.id, status.id)" ) Создать задачу
 
 					.k-task( ng-repeat="task in status.tasks | filter:{swimlane_id: swimlane.id} | orderBy:'sort'" id="{{ 'task-' + task.id }}" )
 						h4( ng-bind="task.title" )

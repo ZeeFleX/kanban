@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get 'index/index'
   get 'index/show'
 
+  #partials
+  get 'partials/createTaskModal'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
