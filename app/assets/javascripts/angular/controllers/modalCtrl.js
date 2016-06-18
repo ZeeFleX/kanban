@@ -1,4 +1,5 @@
 kanbanApp.controller('taskModalCtrl', function ($http, taskModal, boardService) {
+  
   this.closeMe = taskModal.deactivate;
 
   this.createTask = function( task ){
