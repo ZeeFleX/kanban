@@ -22,21 +22,36 @@ class BoardController < ApplicationController
   		project_id: User.find(params[:user_id]).projects.where(id: 1)
   	).order(:sort)
 
+    swimlanes = swimlanes.to_a.map(&:serializable_hash)
     statuses = statuses.to_a.map(&:serializable_hash)
     tasks = tasks.to_a.map(&:serializable_hash)
 
-    statuses.each do |status|
-      status[:tasks] = Array.new
+    swimlanes.each do |swimlane|
 
-      tasks.each do |task|
-        if status['id'] == task['status_id'] then status[:tasks] << task end
+      swimlane[:statuses] = Array.new
+      
+      statuses.each do |status|
+
+        swimlaneStatus = status.clone
+        swimlaneStatus['swimlane_id'] = swimlane['id']
+        swimlane[:statuses] << swimlaneStatus
+        swimlaneStatus[:tasks] = Array.new
+
+        tasks.each do |task|
+
+          if 
+            swimlaneStatus['id'] == task['status_id'] and swimlane['id'] == task['swimlane_id']
+          then   
+            swimlaneStatus[:tasks] << task 
+          end
+
+        end
+
       end
-
     end
 
   	data = {
-  		:swimlanes => swimlanes,
-  		:statuses => statuses
+  		:swimlanes => swimlanes
   	}
 
   	render json: data

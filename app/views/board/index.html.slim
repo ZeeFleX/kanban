@@ -5,11 +5,11 @@ div.devices ng-controller="BoardCtrl"
 		.k-swimlane( ng-repeat="swimlane in swimlanes" )
 			h2( ng-bind="swimlane.name" )
 
-			.k-status( ng-style="css.statusStyle" ng-repeat="status in statuses" ng-class="{over : status.over}" id="{{'status-' + status.id}}" )
+			.k-status( ng-style="css.statusStyle" ng-repeat="status in swimlane.statuses" ng-class="{over : status.over}" id="{{'status-' + status.id}}" )
 				h3( ng-bind="status.name" )
-				.k-tasks( ui-sortable="sortableOptions[status.id]" ng-model="status.tasks" )
+				.k-tasks( ui-sortable="sortableOptions[swimlane.id + '-' + status.id]" ng-model="status.tasks" )
 
-					.k-task( ng-repeat="task in status.tasks | filter:{tracker_id: swimlane.id} | orderBy:'sort'" id="{{ 'task-' + task.id }}" )
+					.k-task( ng-repeat="task in status.tasks | filter:{swimlane_id: swimlane.id} | orderBy:'sort'" id="{{ 'task-' + task.id }}" )
 						h4( ng-bind="task.title" )
 						p( ng-bind="task.description" )
 			.clr

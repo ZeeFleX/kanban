@@ -9,63 +9,40 @@ kanbanApp.controller('BoardCtrl', function($scope, $http) {
       connectWith: ".k-tasks",
       cursor: "move",
       revert: 200,
-      activate: function() {
-
-      },
-      beforeStop: function() {
-
-      },
-      change: function() {
-
-      },
-      create: function() {
-
-      },
-      deactivate: function() {
-
-      },
-      out: function() {
-
-      },
       over: function( e, ui ) {
-        $.each( $scope.statuses, function(key, status){
-          if (status.id == status_id){
-            status.over = true;
-          } else{
-            status.over = false;
-          }
-          $scope.$apply();
-        })
-      },
-      receive: function( e, ui ) {
-        
-      },
-      remove: function() {
+        $.each( $scope.swimlanes, function(swimKey, swimlane){
+          
+          $.each( swimlane.statuses, function(statKey, status){
+            console.log( status_id );
+            if (swimlane.id + '-' + status.id == status_id){
+              status.over = true;
+            } else{
+              status.over = false;
+            }
+            $scope.$apply();
+          })
 
-      },
-      sort: function( e, ui ) {
-
-      },
-      start: function() {
-
+        });
       },
       stop: function( e, ui ) {
+        $.each( $scope.swimlanes, function(swimKey, swimlane){
 
-        $.each($scope.statuses, function(sKey, status){
-          $.each(status.tasks, function(tKey, task){
-            task.status_id = status.id;
-            task.sort = tKey;
+          $.each(swimlane.statuses, function(statKey, status){
+            if( status.swimlane_id == swimlane.id ){
+              $.each(status.tasks, function(taskKey, task){
+                  task.swimlane_id = swimlane.id;
+                  task.status_id = status.id;
+                  task.sort = taskKey;
+              });
+            }
+
+            status.over = false;
+
           });
+
         });
 
-        $.each( $scope.statuses, function(key, status){
-          status.over = false;
-        }); 
-        sendTasks($scope.statuses);
-
-      },
-      update: function( e, ui ) {
-   
+        sendTasks($scope.swimlanes);
       }
     };
     return options;
@@ -94,15 +71,19 @@ kanbanApp.controller('BoardCtrl', function($scope, $http) {
 	}).then(function successCallback(response) {
 
 		$scope.swimlanes = response.data.swimlanes;
-		$scope.statuses = response.data.statuses;
 
     $scope.css.statusStyle = {
-    	width: 100 / $scope.statuses.length + '%'
+    	width: 100 / $scope.swimlanes[0].statuses.length + '%'
     };
 
-    $.each($scope.statuses, function(key, status){
-	    $scope.sortableOptions[status.id] = createOptions(status.id);
+    $.each($scope.swimlanes, function(swimKey, swimlane){
+
+      $.each(swimlane.statuses, function(statkey, status){
+        $scope.sortableOptions[swimlane.id + '-' + status.id] = createOptions(swimlane.id + '-' + status.id);
+      });
+
     });
+    
 
   }, function errorCallback(response) {
     console.log(data);

@@ -17,17 +17,19 @@ class TasksController < ApplicationController
   end
 
   def update
-    statuses = params[:_json]
+    swimlanes = params[:_json]
 
     tasks = {}
 
+    swimlanes.each do |swimlane|
 
-
-    statuses.each do |status|
-      status['tasks'].each do |task|
-        tasks[task['id']] = task
-        task.delete('id')
+      swimlane['statuses'].each do |status|
+        status['tasks'].each do |task|
+          tasks[task['id']] = task
+          task.delete('id')
+        end
       end
+
     end
 
     puts tasks.inspect
