@@ -45,9 +45,6 @@ kanbanApp.factory('boardService', function ($http) {
 
 	//Чанк для совместной работы с конкретным таском
 	service.task = {};
-	
-	//Чанк для совместной работы с доской
-	service.swimlanes = {};
 
 	service.fn = {
 		getBoard: function( callback ){
@@ -59,8 +56,8 @@ kanbanApp.factory('boardService', function ($http) {
 			  },
 			}).then(function successCallback(response) {
 
-				service.swimlanes = response.data.swimlanes;
-				callback( service.swimlanes );
+				service.project = response.data.project;
+				callback( service.project );
 
 		  }, function errorCallback(response) {
 		    console.log(data);
@@ -71,18 +68,30 @@ kanbanApp.factory('boardService', function ($http) {
 
         $.each(swimlane.statuses, function(statKey, status){
           if( status.swimlane_id == swimlane.id ){
+
             $.each(status.tasks, function(taskKey, task){
                 task.swimlane_id = swimlane.id;
                 task.status_id = status.id;
                 task.sort = taskKey;
             });
           }
-
           status.over = false;
-
         });
 
       });
+		},
+		updateTask: function( task_id ){
+			$.each(service.project.swimlanes, function(swimKey, swimlane){
+
+				$.each(swimlane.statuses, function(statKey, status){
+					
+					$.each(status.tasks, function(taskKey, task){
+						if (task.id == task_id){
+
+						}
+					});
+				});
+			});
 		}
 	}
 

@@ -9,10 +9,11 @@ class TasksController < ApplicationController
 
   def create
     
-
-    task = Task.new(params[:task]);
-
-    render json: task if task.save
+    if
+      task = Task.create(params[:task]);
+    then
+      render text: task.to_json( :include => { :assignee => { :include => :profile } } )
+    end
 
   end
 
@@ -27,7 +28,12 @@ class TasksController < ApplicationController
 
   def update
 
-    Task.update(params[:id], params[:task])
+    if 
+      task = Task.update(params[:id], params[:task])
+    then
+      render text: task.to_json( :include => { :assignee => { :include => :profile } } )
+    end
+    
 
   end
 

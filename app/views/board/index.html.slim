@@ -2,14 +2,6 @@ div.root ng-controller="BoardCtrl as boardCtrl"
 
 	.k-board
 
-
-		ui-select ( ng-model="selected.value" theme="selectize" )
-			ui-select-match
-				span ( ng-bind="$select.selected.name" )
-			ui-select-choices ( repeat="item in (itemArray | filter: $select.search) track by item.id" )
-				span ( ng-bind="item.name" )
-
-
 		.k-swimlane( ng-repeat="swimlane in swimlanes" )
 			.k-swimlane-head
 				h2( ng-bind="swimlane.name" )
@@ -32,4 +24,5 @@ div.root ng-controller="BoardCtrl as boardCtrl"
 							p( ng-bind="task.description" )
 							.assignee
 								= image_tag "photo-placeholder.png"
+								p( ng-bind="task.assignee.profile.firstname + ' ' + task.assignee.profile.lastname" )
 				.clr

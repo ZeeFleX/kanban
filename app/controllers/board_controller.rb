@@ -10,6 +10,8 @@ class BoardController < ApplicationController
 
   def get_board
 
+    project = Hash.new
+
   	swimlanes = Swimlane.where(
   		project_id: User.find(params[:user_id]).projects.where(id: 1)
   	)
@@ -22,11 +24,21 @@ class BoardController < ApplicationController
   		project_id: User.find(params[:user_id]).projects.where(id: 1)
   	).order(:sort)
 
+    users = Project.find(1).users
+
     swimlanes = swimlanes.to_a.map(&:serializable_hash)
     statuses = statuses.to_a.map(&:serializable_hash)
     tasks = tasks.to_a.map(&:serializable_hash)
+    users = users.to_a.map(&:serializable_hash)
 
-    swimlanes.each do |swimlane|
+    users.each do |user|
+      user['profile'] = Profile.where(user_id: user['id']).take
+    end
+    
+    project[:users] = users
+    project[:swimlanes] = swimlanes
+
+    project[:swimlanes].each do |swimlane|
 
       swimlane[:statuses] = Array.new
       
@@ -45,13 +57,17 @@ class BoardController < ApplicationController
             swimlaneStatus[:tasks] << task 
           end
 
+          users.each do |user|
+            task['assignee'] = user if task['assignee_id'] == user['id']
+          end
+
         end
 
       end
     end
 
   	data = {
-  		:swimlanes => swimlanes
+  		:project => project
   	}
 
   	render json: data
@@ -68,7 +84,8 @@ class BoardController < ApplicationController
       swimlane['statuses'].each do |status|
         status['tasks'].each do |task|
           tasks[task['id']] = task
-          task.delete('id')
+          task.delete(:id)
+          task.delete(:assignee)
         end
       end
 

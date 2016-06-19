@@ -1,17 +1,6 @@
 kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editTaskModal, boardService) {
   
-  $scope.itemArray = [
-      {id: 1, name: 'first'},
-      {id: 2, name: 'second'},
-      {id: 3, name: 'third'},
-      {id: 4, name: 'fourth'},
-      {id: 5, name: 'fifth'}
-  ];
-
-  $scope.selected = { value: $scope.itemArray[0] };
-
-
-
+  $scope.project = [];
   $scope.task = {};
 
   $scope.createTask = function(swimlane_id, status_id){
@@ -31,7 +20,6 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editT
 
   $scope.editTask = function( task ){
     boardService.task = task;
-
     editTaskModal.activate();
   };
 
@@ -39,8 +27,11 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editT
   $scope.css = {};
   $scope.sortableOptions = [];
 
-  boardService.fn.getBoard( function(swimlanes){
-    $scope.swimlanes = swimlanes;
+  boardService.fn.getBoard( function( project ){
+
+    $scope.project = project;
+    $scope.swimlanes = project.swimlanes;
+    $scope.users = project.users;
 
     function createOptions (status_id) {
       var options = {
@@ -87,11 +78,10 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editT
     };
 
     $.each($scope.swimlanes, function(swimKey, swimlane){
-
+      
       $.each(swimlane.statuses, function(statkey, status){
         $scope.sortableOptions[swimlane.id + '-' + status.id] = createOptions(swimlane.id + '-' + status.id);
       });
-
     });
 
   });
