@@ -17,11 +17,20 @@ kanbanApp.routes = {
 }
 
 //Сервисы
-kanbanApp.factory('taskModal', function (btfModal) {
+kanbanApp.factory('createTaskModal', function (btfModal) {
   return btfModal({
     controller: 'taskModalCtrl',
     controllerAs: 'modal',
     templateUrl: '/partials/createTaskModal'
+  });
+});
+
+kanbanApp.factory('editTaskModal', function (btfModal) {
+  return btfModal({
+    controller: 'taskModalCtrl',
+    controllerAs: 'modal',
+    templateUrl: '/partials/editTaskModal',
+    container: $('.root')
   });
 });
 

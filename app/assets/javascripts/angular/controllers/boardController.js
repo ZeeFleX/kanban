@@ -1,5 +1,5 @@
-kanbanApp.controller('BoardCtrl', function($scope, $http, taskModal, boardService) {
-
+kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editTaskModal, boardService) {
+  $scope.test = '123';
   $scope.task = {};
 
   $scope.createTask = function(swimlane_id, status_id){
@@ -14,8 +14,14 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, taskModal, boardServic
       sort: 0
     }
 
-    taskModal.activate();
-  }
+    createTaskModal.activate();
+  };
+
+  $scope.editTask = function( task ){
+    boardService.task = task;
+
+    editTaskModal.activate();
+  };
 
   var routes = kanbanApp.routes;
   $scope.css = {};
@@ -54,7 +60,7 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, taskModal, boardServic
       function sendTasks(obj){
         $http({
           method: 'PUT',
-          url: '/tasks/update',
+          url: '/board/update_board',
           data: obj,
         }).then(function successCallback(response) {
 

@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
   resources :tasks
 
+  get 'tasks/updateBoard'
+
   get 'board/index'
   get 'board/show'
   get 'board/get_board'
+  put 'board/update_board'
 
   get 'index/index'
   get 'index/show'
 
   #partials
   get 'partials/createTaskModal'
+  get 'partials/editTaskModal'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

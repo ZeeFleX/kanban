@@ -1,4 +1,4 @@
-div.devices ng-controller="BoardCtrl"
+div.root ng-controller="BoardCtrl as boardCtrl"
 	
 	.k-board
 		.k-swimlane( ng-repeat="swimlane in swimlanes" )
@@ -12,6 +12,10 @@ div.devices ng-controller="BoardCtrl"
 					.k-tasks( ui-sortable="sortableOptions[swimlane.id + '-' + status.id]" ng-model="status.tasks" )
 
 						.k-task( ng-repeat="task in status.tasks | filter:{swimlane_id: swimlane.id} | orderBy:'sort'" id="{{ 'task-' + task.id }}" )
+
+							.task-menu
+								a( ng-click="editTask(task)" title="Редактировать" )
+									i.fa.fa-pencil
 							.task-id( ng-bind="'#' + task.id" )
 							h4( ng-bind="task.title" )
 							.clr

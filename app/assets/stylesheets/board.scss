@@ -61,6 +61,34 @@
 						cursor:pointer;
 						margin-bottom:10px;
 						-webkit-user-select:none;
+						.task-menu{
+							display:none;
+							position: absolute;
+							bottom:-25px;
+							height:25px;
+							left:-1px;
+							margin-top: 20px;
+							width: 100%;
+							background:#fff;
+							border-left: solid 1px #aaa;
+							border-bottom: solid 1px #aaa;
+							border-right: solid 1px #aaa;
+							border-radius: 0 0 3px 3px;
+							a{
+								margin:3px 10px;
+								&:hover{
+									color:#FFB200;
+								}
+							}
+						}
+						&:hover{
+							z-index: 1;
+							box-shadow:2px 2px 3px #ccc;
+							.task-menu{
+								box-shadow:2px 2px 3px #ccc;
+								display:block;
+							}
+						}
 						.task-id{
 							float: right;
 							margin-left: 10px;

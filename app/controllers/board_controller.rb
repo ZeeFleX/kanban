@@ -1,5 +1,5 @@
 class BoardController < ApplicationController
-	
+	skip_before_filter :verify_authenticity_token, :only => [:update_board]
   def index
 
   end
@@ -55,5 +55,27 @@ class BoardController < ApplicationController
   	}
 
   	render json: data
+  end
+
+  def update_board
+
+    swimlanes = params[:_json]
+
+    tasks = {}
+
+    swimlanes.each do |swimlane|
+
+      swimlane['statuses'].each do |status|
+        status['tasks'].each do |task|
+          tasks[task['id']] = task
+          task.delete('id')
+        end
+      end
+
+    end
+
+    puts tasks.inspect
+
+    render text: 'success' if Task.update(tasks.keys, tasks.values)
   end
 end

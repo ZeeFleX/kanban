@@ -29,6 +29,10 @@ gem 'slim'
 gem 'angularjs-rails'
 # User lodash library
 gem 'lodash-rails', '~> 3.7'
+
+# User font awesome toolkil
+gem "font-awesome-rails"
+
 # Use json parser
 gem 'json', '~> 1.8', '>= 1.8.3'
 
