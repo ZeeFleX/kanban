@@ -2,8 +2,12 @@
 
 /* Controllers */
 
-var kanbanApp = angular.module('kanbanApp', ['ui.sortable', 'btford.modal']);
+var kanbanApp = angular.module('kanbanApp', ['ui.sortable', 'btford.modal', 'ui.select']);
 
+
+kanbanApp.config(function(uiSelectConfig) {
+  uiSelectConfig.theme = 'selectize';
+});
 //Это роуты, вдруг когда-нибудь имена контроллеров поменяются
 kanbanApp.routes = {
 	_index: {

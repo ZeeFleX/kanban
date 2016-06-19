@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require lodash
 //= require angular
+//= require select
 //= require turbolinks
 //= require_tree .
 
