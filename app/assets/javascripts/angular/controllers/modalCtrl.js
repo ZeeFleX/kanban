@@ -7,8 +7,15 @@ kanbanApp.controller('taskModalCtrl', function ($http, createTaskModal, editTask
     return u.id == boardService.task.assignee_id;
   });
 
+  this.reporterUser =  _.find(boardService.project.users, function(u){
+    return u.id == boardService.task.reporter_id;
+  });
+
   boardService.ui = {
-    selected: { value: this.assigneeUser }
+    selected: { 
+      assignee: this.assigneeUser,
+      reporter: this.reporterUser
+    }
   };
 
   this.ui = boardService.ui;
@@ -19,77 +26,20 @@ kanbanApp.controller('taskModalCtrl', function ($http, createTaskModal, editTask
   }
 
   this.createTask = function( task ){
-  	
-  	boardService.task.title = task.title;
-  	boardService.task.description = task.description;
-    boardService.task.assignee_id = this.ui.selected.value.id;
 
-  	$http({
-      method: 'POST',
-      url: '/tasks',
-      data: boardService.task,
-    }).then(function successCallback(response) {
-    	var task = response.data;
+    console.log('123123');
 
-    	$.each(boardService.project.swimlanes, function(swimKey, swimlane){
-    		if( task.swimlane_id == swimlane.id){
+  	boardService.fn.createOrUpdateTask( task, 'create' );
+  	createTaskModal.deactivate();
 
-    			$.each( swimlane.statuses, function(statKey, status){
-    				if( task.status_id == status.id ) status.tasks.unshift( task );
-
-            $.each( status.tasks, function(taskKey, t){
-              if (t.id == task.id) {
-                t.assignee = task.assignee;
-                console.log(boardService.project);
-              }
-            });
-    			});
-    		}
-    	});
-
-      boardService.fn.sortTasks( boardService.swimlanes );
-      createTaskModal.deactivate();
-      boardService.task = {};
-
-    }, function errorCallback(response) {
-      console.log(response);
-    });
   }
 
   this.editTask = function( task ){  
 
-    boardService.task.title = task.title;
-    boardService.task.description = task.description;
-    boardService.task.assignee_id = this.ui.selected.value.id;
+    console.log('123123');
 
-    $http({
-      method: 'PUT',
-      url: '/tasks/' + boardService.task.id,
-      data: boardService.task,
-    }).then(function successCallback(response) {
-      var task = response.data;
+    boardService.fn.createOrUpdateTask( task, 'update' );
+    editTaskModal.deactivate();
 
-      $.each(boardService.project.swimlanes, function(swimKey, swimlane){
-        if( task.swimlane_id == swimlane.id){
-
-          $.each( swimlane.statuses, function(statKey, status){
-            
-            $.each( status.tasks, function(taskKey, t){
-              if (t.id == task.id) {
-                t.assignee = task.assignee;
-                console.log(boardService.project);
-              }
-            });
-          });
-        }
-      });
-
-      boardService.fn.sortTasks( boardService.swimlanes );
-      editTaskModal.deactivate();
-      boardService.task = {};
-
-    }, function errorCallback(response) {
-      console.log(response);
-    });
   };
 });

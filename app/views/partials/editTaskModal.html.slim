@@ -13,7 +13,15 @@
 
 		.field
 			label Назначена
-			ui-select ( ng-model="modal.ui.selected.value" theme="selectize" )
+			ui-select ( ng-model="modal.ui.selected.assignee" theme="selectize" )
+				ui-select-match
+					span ( ng-bind="$select.selected.profile.firstname + ' ' + $select.selected.profile.lastname" )
+				ui-select-choices ( repeat="user in (modal.project.users | filter: $select.search) track by user.id" )
+					span ( ng-bind="user.profile.firstname + ' ' + user.profile.lastname" )
+
+		.field
+			label Инициатор
+			ui-select ( ng-model="modal.ui.selected.reporter" theme="selectize" )
 				ui-select-match
 					span ( ng-bind="$select.selected.profile.firstname + ' ' + $select.selected.profile.lastname" )
 				ui-select-choices ( repeat="user in (modal.project.users | filter: $select.search) track by user.id" )

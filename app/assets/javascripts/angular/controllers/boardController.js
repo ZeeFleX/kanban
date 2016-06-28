@@ -55,22 +55,10 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editT
         },
         stop: function( e, ui ) {
           boardService.fn.sortTasks( $scope.swimlanes );
-          sendTasks( $scope.swimlanes );
+          boardService.fn.sendTasks( $scope.swimlanes );
         }
       };
       return options;
-
-      function sendTasks(obj){
-        $http({
-          method: 'PUT',
-          url: '/board/update_board',
-          data: obj,
-        }).then(function successCallback(response) {
-
-        }, function errorCallback(response) {
-
-        });
-      }
     }
 
     $scope.css.statusStyle = {

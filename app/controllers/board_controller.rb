@@ -59,6 +59,7 @@ class BoardController < ApplicationController
 
           users.each do |user|
             task['assignee'] = user if task['assignee_id'] == user['id']
+            task['reporter'] = user if task['reporter_id'] == user['id']
           end
 
         end
@@ -86,6 +87,7 @@ class BoardController < ApplicationController
           tasks[task['id']] = task
           task.delete(:id)
           task.delete(:assignee)
+          task.delete(:reporter)
         end
       end
 

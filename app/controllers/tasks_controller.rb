@@ -12,7 +12,9 @@ class TasksController < ApplicationController
     if
       task = Task.create(params[:task]);
     then
-      render text: task.to_json( :include => { :assignee => { :include => :profile } } )
+      render text: task.to_json( 
+        :include => { :assignee => { :include => :profile }, :reporter => { :include => :profile } } 
+      )
     end
 
   end
@@ -31,7 +33,9 @@ class TasksController < ApplicationController
     if 
       task = Task.update(params[:id], params[:task])
     then
-      render text: task.to_json( :include => { :assignee => { :include => :profile } } )
+      render text: task.to_json( 
+        :include => { :assignee => { :include => :profile }, :reporter => { :include => :profile } } 
+      )
     end
     
 

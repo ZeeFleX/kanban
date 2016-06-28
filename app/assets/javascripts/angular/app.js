@@ -80,18 +80,84 @@ kanbanApp.factory('boardService', function ($http) {
 
       });
 		},
-		updateTask: function( task_id ){
-			$.each(service.project.swimlanes, function(swimKey, swimlane){
+		sendTasks: function( obj ){
+      $http({
+        method: 'PUT',
+        url: '/board/update_board',
+        data: obj,
+      }).then(function successCallback(response) {
 
-				$.each(swimlane.statuses, function(statKey, status){
+      }, function errorCallback(response) {
+
+      });
+    },
+		createOrUpdateTask: function( task, action ){
+
+			var url, method;
+
+			switch(action){
+				case 'create':
+					method = 'POST';
+					url = '/tasks';
+				break;
+
+				case 'update':
+					method = 'PUT';
+					url = '/tasks/' + service.task.id;
+				break;
+			}
+
+			service.task.title = task.title;
+	  	service.task.description = task.description;
+	    service.task.assignee_id = service.ui.selected.assignee.id;
+	    service.task.reporter_id = service.ui.selected.reporter.id;
+
+
+
+	  	$http({
+	      method: method,
+	      url: url,
+	      data: service.task,
+	    }).then(function successCallback(response) {
+	    	var task = response.data;
+
+	    	console.log(response);
+
+	    	$.each(service.project.swimlanes, function(swimKey, swimlane){
+	    		if( task.swimlane_id == swimlane.id){
+
+	    			$.each( swimlane.statuses, function(statKey, status){
+	    				if( task.status_id == status.id && action == 'create' ) status.tasks.unshift( task );
+
+	            $.each( status.tasks, function(taskKey, t){
+	              if (t.id == task.id) {
+	                t.assignee = task.assignee;
+	                t.reporter = task.reporter;
+	                console.log(service.project);
+	              }
+	            });
+	    			});
+	    		}
+	    	});
+
+	      service.fn.sortTasks( service.swimlanes );
+
+	      service.task = {};
+
+	    }, function errorCallback(response) {
+	      console.log(response);
+	    });
+			// $.each(service.project.swimlanes, function(swimKey, swimlane){
+
+			// 	$.each(swimlane.statuses, function(statKey, status){
 					
-					$.each(status.tasks, function(taskKey, task){
-						if (task.id == task_id){
+			// 		$.each(status.tasks, function(taskKey, task){
+			// 			if (task.id == task_id){
 
-						}
-					});
-				});
-			});
+			// 			}
+			// 		});
+			// 	});
+			// });
 		}
 	}
 

@@ -25,4 +25,5 @@ div.root ng-controller="BoardCtrl as boardCtrl"
 							.assignee
 								= image_tag "photo-placeholder.png"
 								p( ng-bind="task.assignee.profile.firstname + ' ' + task.assignee.profile.lastname" )
+								p( ng-bind="task.reporter.profile.firstname + ' ' + task.reporter.profile.lastname" )
 				.clr
