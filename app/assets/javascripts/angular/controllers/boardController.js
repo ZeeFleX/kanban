@@ -1,7 +1,30 @@
-kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editTaskModal, boardService) {
+kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editTaskModal, boardService, uibDateParser) {
   
   $scope.project = [];
   $scope.task = {};
+
+  $scope.calcRemaining = function( createdAt, deadline ){
+
+    var msAllotted = moment(deadline) - moment(createdAt),
+        msRemaining = moment(deadline) - moment(),
+        result = {};
+
+    if( msRemaining > 0){
+      result.remainingString = Math.ceil(msRemaining / 1000 / 60 / 60 / 24) + ' дней';
+      result.passedPercent = Math.ceil((msAllotted - msRemaining) / msAllotted * 100);
+    }else{
+      result.remainingString = 'Задача просрочена';
+      result.passedPercent = 100;
+    }
+
+    return result;
+  }
+
+  $scope.formatDate = function( str ){
+
+    var dateObject = uibDateParser.parse(str, "yyyy-MM-dd");
+    return moment(dateObject).format("D MMMM YYYY");
+  }
 
   $scope.createTask = function(swimlane_id, status_id){
 
@@ -20,6 +43,7 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editT
 
   $scope.editTask = function( task ){
     boardService.task = task;
+    boardService.task.due_date_obj = uibDateParser.parse(boardService.task.due_date, "yyyy-MM-dd");
     editTaskModal.activate();
   };
 
@@ -42,7 +66,6 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editT
           $.each( $scope.swimlanes, function(swimKey, swimlane){
             
             $.each( swimlane.statuses, function(statKey, status){
-              console.log( status_id );
               if (swimlane.id + '-' + status.id == status_id){
                 status.over = true;
               } else{

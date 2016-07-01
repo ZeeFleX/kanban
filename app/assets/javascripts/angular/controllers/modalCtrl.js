@@ -1,5 +1,20 @@
-kanbanApp.controller('taskModalCtrl', function ($http, createTaskModal, editTaskModal, boardService) {
-  
+kanbanApp.controller('taskModalCtrl', function ($scope, $http, createTaskModal, editTaskModal, boardService) {
+
+  this.dueDate = {
+    altInputFormats: ['yyyy-MM-dd'],
+    format:'yyyy-MM-dd',
+    dateOptions: {
+      formatYear: 'yy',
+      maxDate: new Date(2020, 5, 22),
+      minDate: new Date(),
+      startingDay: 1
+    },
+    opened: false,
+    open: function(){
+      this.opened = true;
+    }
+  }
+
   this.task = boardService.task;
   this.project = boardService.project;
 
@@ -27,7 +42,7 @@ kanbanApp.controller('taskModalCtrl', function ($http, createTaskModal, editTask
 
   this.createTask = function( task ){
 
-    console.log('123123');
+    task.due_date = moment(task.due_date_obj).format("D MMMM YYYY");
 
   	boardService.fn.createOrUpdateTask( task, 'create' );
   	createTaskModal.deactivate();
@@ -36,7 +51,7 @@ kanbanApp.controller('taskModalCtrl', function ($http, createTaskModal, editTask
 
   this.editTask = function( task ){  
 
-    console.log('123123');
+    task.due_date = moment(task.due_date_obj).format("D MMMM YYYY");
 
     boardService.fn.createOrUpdateTask( task, 'update' );
     editTaskModal.deactivate();

@@ -88,6 +88,7 @@ class BoardController < ApplicationController
           task.delete(:id)
           task.delete(:assignee)
           task.delete(:reporter)
+          task.delete(:due_date_obj)
         end
       end
 

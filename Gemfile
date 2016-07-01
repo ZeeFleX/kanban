@@ -30,11 +30,11 @@ gem 'angularjs-rails'
 # User lodash library
 gem 'lodash-rails', '~> 3.7'
 
-# User font awesome toolkil
-gem "font-awesome-rails"
-
 # Use json parser
 gem 'json', '~> 1.8', '>= 1.8.3'
+
+# Use moment.js
+gem 'momentjs-rails', '~> 2.11', '>= 2.11.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

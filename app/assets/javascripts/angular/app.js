@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var kanbanApp = angular.module('kanbanApp', ['ui.sortable', 'btford.modal', 'ui.select']);
+var kanbanApp = angular.module('kanbanApp', ['ui.sortable', 'ui.bootstrap', 'btford.modal', 'ui.select']);
 
 
 kanbanApp.config(function(uiSelectConfig) {
@@ -109,10 +109,9 @@ kanbanApp.factory('boardService', function ($http) {
 
 			service.task.title = task.title;
 	  	service.task.description = task.description;
+	  	service.task.due_date = moment(task.due_date_obj).format('YYYY-MM-DD');
 	    service.task.assignee_id = service.ui.selected.assignee.id;
 	    service.task.reporter_id = service.ui.selected.reporter.id;
-
-
 
 	  	$http({
 	      method: method,
@@ -120,8 +119,6 @@ kanbanApp.factory('boardService', function ($http) {
 	      data: service.task,
 	    }).then(function successCallback(response) {
 	    	var task = response.data;
-
-	    	console.log(response);
 
 	    	$.each(service.project.swimlanes, function(swimKey, swimlane){
 	    		if( task.swimlane_id == swimlane.id){
@@ -132,8 +129,7 @@ kanbanApp.factory('boardService', function ($http) {
 	            $.each( status.tasks, function(taskKey, t){
 	              if (t.id == task.id) {
 	                t.assignee = task.assignee;
-	                t.reporter = task.reporter;
-	                console.log(service.project);
+	                t.due_date = task.due_date;
 	              }
 	            });
 	    			});
@@ -147,17 +143,6 @@ kanbanApp.factory('boardService', function ($http) {
 	    }, function errorCallback(response) {
 	      console.log(response);
 	    });
-			// $.each(service.project.swimlanes, function(swimKey, swimlane){
-
-			// 	$.each(swimlane.statuses, function(statKey, status){
-					
-			// 		$.each(status.tasks, function(taskKey, task){
-			// 			if (task.id == task_id){
-
-			// 			}
-			// 		});
-			// 	});
-			// });
 		}
 	}
 
