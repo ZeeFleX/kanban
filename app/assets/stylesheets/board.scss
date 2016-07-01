@@ -35,11 +35,15 @@
 					color:#2DB27C;
 					margin:10px 0;
 					display: block;
+					visibility: hidden;
 					&:hover{
 						text-decoration: underline;
 						color:#2DB27C - #222
 					}
 
+				}
+				&:hover a.create-task{
+					visibility: visible;
 				}
 				.k-tasks{
 					min-height:100px;
