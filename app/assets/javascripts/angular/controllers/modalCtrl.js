@@ -1,5 +1,6 @@
 kanbanApp.controller('taskModalCtrl', function ($scope, $http, createTaskModal, editTaskModal, boardService) {
 
+
   this.dueDate = {
     altInputFormats: ['yyyy-MM-dd'],
     format:'yyyy-MM-dd',
@@ -30,7 +31,8 @@ kanbanApp.controller('taskModalCtrl', function ($scope, $http, createTaskModal, 
     selected: { 
       assignee: this.assigneeUser,
       reporter: this.reporterUser
-    }
+    },
+    searchTerm: ''
   };
 
   this.ui = boardService.ui;

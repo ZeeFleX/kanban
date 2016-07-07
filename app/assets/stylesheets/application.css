@@ -11,28 +11,11 @@
  * file per style scope.
  *
  *= require_tree .
- *= require select
+ *= require font-awesome
  *= require_self
+ *= require angular-material
  */
-@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i&subset=cyrillic';
-
-h1{
-	font-size:2.4rem;
-	font-weight: 700;
-	padding: 10px 0;
-}
-h2{
-	font-size:2.1rem;
-	font-weight: 400;
-	padding: 10px 0;
-}
-h3{
-	font-size:1.8rem;
-	font-weight: 400;
-	padding: 10px 0;
-}
-
-
+@import 'https://fonts.googleapis.com/css?family=Roboto:400,400i,600,600i,700,700i&subset=cyrillic';
 
  
  *{
@@ -41,14 +24,12 @@ h3{
 html{
 	margin:0;
 	padding: 0;
-	font-size:62.5%;
 }
 body{
 	margin:0;
 	padding: 0;
 	background:#d9dfe0;
-	font-family:"Open Sans", sans-serif;
-	font-size:1.2rem;
+	font-family:"Roboto", sans-serif;
 	color:#222;
 }
 

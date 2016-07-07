@@ -17,9 +17,13 @@
 //= require moment/ru.js
 //= require lodash
 //= require angular
-//= require select
+//= require angular-animate
+//= require angular-aria
+//= require angular-messages
+//= require angular-material
 //= require turbolinks
 //= require_tree .
+
 
 
 

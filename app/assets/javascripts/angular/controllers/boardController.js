@@ -1,4 +1,4 @@
-kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editTaskModal, boardService, uibDateParser) {
+kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editTaskModal, boardService) {
   
   $scope.project = [];
   $scope.task = {};
@@ -22,7 +22,7 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editT
 
   $scope.formatDate = function( str ){
 
-    var dateObject = uibDateParser.parse(str, "yyyy-MM-dd");
+    var dateObject = moment(str).toDate();
     return moment(dateObject).format("D MMMM YYYY");
   }
 
@@ -43,7 +43,7 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editT
 
   $scope.editTask = function( task ){
     boardService.task = task;
-    boardService.task.due_date_obj = uibDateParser.parse(boardService.task.due_date, "yyyy-MM-dd");
+    boardService.task.due_date_obj = moment(boardService.task.due_date).toDate();
     editTaskModal.activate();
   };
 

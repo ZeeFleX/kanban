@@ -17,6 +17,9 @@ gem 'uglifier', '>= 1.3.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
+
+# Use Angular material
+gem 'rails-angular-material', '~> 1.0', '>= 1.0.5'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -27,7 +30,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'slim'
 # Use AngularJS
 gem 'angularjs-rails'
-# User lodash library
+# Use font awesome icons
+gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
+# Use lodash library
 gem 'lodash-rails', '~> 3.7'
 
 # Use json parser
