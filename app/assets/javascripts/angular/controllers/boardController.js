@@ -1,5 +1,71 @@
-kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editTaskModal, boardService) {
+kanbanApp.controller('BoardCtrl', function($scope, $http, $mdDialog, $mdMedia, boardService) {
   
+  $scope.showCreateTaskDialog = function(ev, swimlane_id, status_id) {
+
+    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+
+    var task = {
+      swimlane_id: swimlane_id,
+      status_id: status_id,
+      due_date: new Date()
+
+    };
+
+    $mdDialog.show({
+      controller: 'DialogController',
+      templateUrl: '/partials/createTaskDialog',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: useFullScreen,
+      locals: {
+        $mdDialog: $mdDialog,
+        task: task,
+        project: boardService.project
+      }
+    })
+    .then(function(answer) {
+      $scope.status = 'You said the information was "' + answer + '".';
+    }, function() {
+      $scope.status = 'You cancelled the dialog.';
+    });
+    $scope.$watch(function() {
+      return $mdMedia('xs') || $mdMedia('sm');
+    }, function(wantsFullScreen) {
+      $scope.customFullscreen = (wantsFullScreen === true);
+    });
+  };
+
+  $scope.showEditTaskDialog = function(ev, task) {
+
+    var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+
+    $mdDialog.show({
+      controller: 'DialogController',
+      templateUrl: '/partials/editTaskDialog',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: useFullScreen,
+      locals: {
+        $mdDialog: $mdDialog,
+        task: task,
+        project: boardService.project
+      }
+    })
+    .then(function(answer) {
+      $scope.status = 'You said the information was "' + answer + '".';
+    }, function() {
+      $scope.status = 'You cancelled the dialog.';
+    });
+    $scope.$watch(function() {
+      return $mdMedia('xs') || $mdMedia('sm');
+    }, function(wantsFullScreen) {
+      $scope.customFullscreen = (wantsFullScreen === true);
+    });
+  };
+
+
   $scope.project = [];
   $scope.task = {};
 
@@ -92,9 +158,27 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, createTaskModal, editT
       
       $.each(swimlane.statuses, function(statkey, status){
         $scope.sortableOptions[swimlane.id + '-' + status.id] = createOptions(swimlane.id + '-' + status.id);
+
+        $.each(status.tasks, function(taskKey, task){
+          task.due_date = new Date(task.due_date);
+        });
       });
     });
 
   });
 
 });
+
+// function DialogController($scope, $mdDialog, task) {
+
+//   $scope.task = task;
+//   $scope.hide = function() {
+//     $mdDialog.hide();
+//   };
+//   $scope.cancel = function() {
+//     $mdDialog.cancel();
+//   };
+//   $scope.answer = function(answer) {
+//     $mdDialog.hide(answer);
+//   };
+// }

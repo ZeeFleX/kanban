@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   #partials
   get 'partials/createTaskModal'
   get 'partials/editTaskModal'
+  get 'partials/createTaskDialog'
+  get 'partials/editTaskDialog'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

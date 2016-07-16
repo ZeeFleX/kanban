@@ -1,0 +1,35 @@
+md-dialog( ng-cloak="" )
+
+	form
+		md-toolbar
+			.md-toolbar-tools
+				h2 Редактировать задачу
+				span flex="" 
+				md-button.md-icon-button ng-click="cancel()" 
+					|Закрыть
+		md-dialog-content
+			md-input-container.md-block
+				label Введите название задачи
+				input (type="text" ng-model="task.title" ng-value="task.title")
+
+			md-input-container.md-block
+				label Введите описание задачи
+				textarea ( ng-model="task.description" ng-bind="task.description")
+			
+			md-autocomplete ( md-selected-item="ui.selected.assignee" md-search-text="assignee.searchText" md-items="user in project.users | filter: assignee.searchText" md-item-text="user.profile.firstname + ' ' + user.profile.lastname" placeholder="Назначена" )
+				md-item-template
+					span 
+						| {{user.profile.firstname + ' ' + user.profile.lastname}}
+
+			md-autocomplete ( md-selected-item="ui.selected.reporter" md-search-text="reporter.searchText" md-items="user in project.users | filter: reporter.searchText" md-item-text="user.profile.firstname + ' ' + user.profile.lastname" placeholder="Инициатор" )
+				md-item-template
+					span 
+						| {{user.profile.firstname + ' ' + user.profile.lastname}}
+
+			md-datepicker ( ng-model="task.due_date" md-placeholder="Дедлайн" md-open-on-focus )
+			/ input( type="text" uib-datepicker-popup="{{modal.dueDate.format}}" ng-model="modal.task.due_date_obj" is-open="modal.dueDate.opened" datepicker-options="modal.dueDate.dateOptions" close-text="Закрыть" alt-input-formats="modal.dueDate.altInputFormats" )
+			/ span( ng-click="modal.dueDate.open()" )
+			/ 	i.glyphicon.glyphicon-th
+
+			section ( layout="row" )
+				md-button ( class="md-raised md-accent" ng-click="answer(true)" ) Редактировать
