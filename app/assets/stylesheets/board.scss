@@ -23,7 +23,8 @@
 				float:left;
 				padding:0 10px;
 				border-radius:4px;
-				
+				box-sizing:border-box;
+				-moz-box-sizing:border-box;
 				&:first-child{
 					border-left: none;
 				}
@@ -118,5 +119,13 @@
 				}
 			}
 		}
+	}
+}
+md-dialog.task-modal{
+	form{
+		min-width:500px;
+	}
+	md-dialog-content{
+		padding-top: 25px !important;
 	}
 }

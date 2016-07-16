@@ -25,7 +25,7 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, $mdDialog, $mdMedia, b
       }
     })
     .then(function(answer) {
-      $scope.status = 'You said the information was "' + answer + '".';
+      boardService.fn.createOrUpdateTask( task, 'create' );
     }, function() {
       $scope.status = 'You cancelled the dialog.';
     });
@@ -54,7 +54,8 @@ kanbanApp.controller('BoardCtrl', function($scope, $http, $mdDialog, $mdMedia, b
       }
     })
     .then(function(answer) {
-      $scope.status = 'You said the information was "' + answer + '".';
+      console.log(task);
+      boardService.fn.createOrUpdateTask( task, 'update' );
     }, function() {
       $scope.status = 'You cancelled the dialog.';
     });

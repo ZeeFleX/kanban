@@ -22,12 +22,13 @@ kanbanApp.controller('DialogController', function ($scope, $http, boardService, 
   });
 
 
-  $scope.ui = {};
+  $scope.ui = boardService.ui = {};
 
   $scope.ui.selected = {
     assignee: $scope.assigneeUser,
     reporter: $scope.reporterUser
   };
+
   $scope.ui.searchTerm = '';
 
 

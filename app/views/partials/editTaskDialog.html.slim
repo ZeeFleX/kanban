@@ -1,4 +1,4 @@
-md-dialog( ng-cloak="" )
+md-dialog.task-modal( ng-cloak="" )
 
 	form
 		md-toolbar
@@ -6,8 +6,8 @@ md-dialog( ng-cloak="" )
 				h2 Редактировать задачу
 				span flex="" 
 				md-button.md-icon-button ng-click="cancel()" 
-					|Закрыть
-		md-dialog-content
+					i.fa.fa-close
+		md-dialog-content (layout-padding="20px")
 			md-input-container.md-block
 				label Введите название задачи
 				input (type="text" ng-model="task.title" ng-value="task.title")
@@ -32,4 +32,4 @@ md-dialog( ng-cloak="" )
 			/ 	i.glyphicon.glyphicon-th
 
 			section ( layout="row" )
-				md-button ( class="md-raised md-accent" ng-click="answer(true)" ) Редактировать
+				md-button ( class="md-raised md-accent" ng-click="answer(task)" ) Редактировать

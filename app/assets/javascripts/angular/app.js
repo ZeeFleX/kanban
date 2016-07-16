@@ -77,7 +77,6 @@ kanbanApp.factory('boardService', function ($http) {
 			}).then(function successCallback(response) {
 
 				service.project = response.data.project;
-				console.log(service.project);
 				callback( service.project );
 
 		  }, function errorCallback(response) {
@@ -124,22 +123,22 @@ kanbanApp.factory('boardService', function ($http) {
 
 				case 'update':
 					method = 'PUT';
-					url = '/tasks/' + service.task.id;
+					url = '/tasks/' + task.id;
 				break;
 			}
 
-			service.task.title = task.title;
-	  	service.task.description = task.description;
-	  	service.task.due_date = moment(task.due_date_obj).format('YYYY-MM-DD');
-	    service.task.assignee_id = service.ui.selected.assignee.id;
-	    service.task.reporter_id = service.ui.selected.reporter.id;
+			task.assignee_id = service.ui.selected.assignee.id;
+			task.reporter_id = service.ui.selected.reporter.id;
+			task.project_id = 1;
 
 	  	$http({
 	      method: method,
 	      url: url,
-	      data: service.task,
+	      data: task
 	    }).then(function successCallback(response) {
 	    	var task = response.data;
+
+	    	console.log(task);
 
 	    	$.each(service.project.swimlanes, function(swimKey, swimlane){
 	    		if( task.swimlane_id == swimlane.id){
@@ -150,7 +149,7 @@ kanbanApp.factory('boardService', function ($http) {
 	            $.each( status.tasks, function(taskKey, t){
 	              if (t.id == task.id) {
 	                t.assignee = task.assignee;
-	                t.due_date = task.due_date;
+	                t.due_date = new Date(task.due_date);
 	              }
 	            });
 	    			});
