@@ -6,6 +6,11 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-aria": "^1.5.8",
+    "angular-material": "^1.1.0-rc.5",
+    "babel-core": "^6.13.2",
     "body-parser": "~1.15.1",
     "bower": "^1.7.9",
     "cookie-parser": "~1.4.3",
@@ -13,13 +18,22 @@
     "express": "~4.13.4",
     "jade": "~1.11.0",
     "jquery": "^3.1.0",
+    "jquery-ui": "^1.12.0",
     "morgan": "~1.7.0",
     "mysql": "^2.11.1",
     "orm": "^3.1.0",
     "sequelize": "^3.23.6",
     "serve-favicon": "~2.3.0",
-    "underscore": "^1.8.3",
-    "webpack": "^1.13.1"
+    "underscore": "^1.8.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-less": "^3.1.0",
+    "serve-static": "^1.11.1"
+  },
+  "scripts": {
+    "start": "NODE_ENV=development supervisor ./bin/www & gulp"
+  }
 }

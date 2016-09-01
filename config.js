@@ -3,7 +3,7 @@ var config = {
       host: 'localhost',
       database: 'kanban',
       username: 'root',
-      password: '',
+      password: '7895123',
       dialect: 'mysql',
       pool: {
         max: 5,

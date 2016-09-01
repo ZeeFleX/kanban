@@ -1,8 +1,56 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import 'https://fonts.googleapis.com/css?family=Roboto:400,400i,600,600i,700,700i&subset=cyrillic';
+
+
+ *{
+ 	position: relative;
+ }
+html{
+	margin:0;
+	padding: 0;
+}
+body{
+	margin:0;
+	padding: 0;
+	background:#d9dfe0;
+	font-family:"Roboto", sans-serif;
+	color:#222;
 }
 
-a {
-  color: #00B7FF;
+.clr{
+	clear:both;
+}
+
+.hidden{
+	display:none;
+}
+
+.btf-modal{
+	position:fixed;
+	width:800px;
+	margin-top: 200px;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	padding:20px;
+	background:#fff;
+	border:solid 1px #aaa;
+	box-shadow:2px 2px 5px #aaa;
+	left: 50%;
+	margin-left: -400px;
+	z-index: 5;
+}
+.btf-modal h3{
+	margin:0;
+	padding:0;
+}
+.btf-modal .close{
+	position: absolute;
+	right:20px;
+	top:20px;
+}
+
+form input, form label, form textarea{
+	width: 100%;
+}
+form .field{
+	margin:20px 0;
 }

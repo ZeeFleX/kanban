@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  div.root(ng-controller="BoardCtrl as boardCtrl")
+
+    .k-board
+
+      .k-swimlane( ng-repeat="(swimKey, swimlane) in project.Swimlanes" )
+        .k-swimlane-head
+          h2( ng-bind="swimlane.name" )
+
+        .k-swimlane-body
+          .k-status( ng-style="css.swimlaneStyle[swimKey]" ng-repeat="(statKey, status) in swimlane.Statuses" ng-class="{over : status.over}" id="{{'status-' + status.id}}" )
+            h3( ng-bind="status.name" )
+            a( href ng-click="showCreateTaskDialog($event, swimlane.id, status.id)" class="create-task") Создать задачу
+            .k-tasks( ui-sortable="sortableOptions[swimlane.id + '-' + status.id]" ng-model="status.Tasks" )
+
+              .k-task( ng-repeat="task in status.Tasks | filter:{swimlaneId: swimlane.id, statusId: status.id} | orderBy:'sort'" id="{{ 'task-' + task.id }}" )
+                .deadline-indicator( ng-style="{backgroundPosition: calcRemaining(task.created_at, task.due_date).passedPercent + '%'}" )
+
+                .task-menu
+                  a( ng-click="showEditTaskDialog($event, task)" title="Редактировать" )
+                    i.fa.fa-pencil
+
+                .task-id( ng-bind="'#' + task.id" )
+                h4( ng-bind="task.title" )
+                .clr
+
+                p( ng-bind="task.description" )
+                .assignee
+                  p( ng-bind="task.assignee.profile.firstname + ' ' + task.assignee.profile.lastname" )
+                  p( ng-bind="task.reporter.profile.firstname + ' ' + task.reporter.profile.lastname" )
+                p( ng-bind="'Создана: ' + formatDate(task.created_at)" )
+                p( ng-bind="'Дедлайн: ' + formatDate(task.due_date)" ) 
+                p( ng-bind="'Осталось: ' + calcRemaining(task.created_at, task.due_date).remainingString" )
+
+          .clr

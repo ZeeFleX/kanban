@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
     }]
   })
   .then(function(user) {
-    console.log(user.assignee[0].Project.Users[0].Profile.firstname);
+    
     res.render('index', {
       title: 'Express'
     });

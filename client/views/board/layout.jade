@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', href='/css/board.css')
+    link(rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css")
+    script(src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
+    script(src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js")
+    script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js")
+    script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/locale/ru.js")
+    script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js")
+    script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js")
+    script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js")
+    script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js")
+    script(src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js")
+    script(src='/js/main.js')
+    script(src='/js/angular/app.js')
+    script(src='/js/angular/modules/directives/sortable/sortable.js')
+    script(src='/js/angular/controllers/boardController.js')
+    script(src='/js/angular/controllers/dialogCtrl.js')
+    
+  body(ng-app="kanbanApp")
+    block content

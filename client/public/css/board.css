@@ -1,0 +1,120 @@
+.k-board {
+  overflow: hidden;
+  margin: 20px;
+}
+.k-board .k-swimlane {
+  border-bottom: solid 1px #666;
+  margin-bottom: 20px;
+  background: #fafafa;
+}
+.k-board .k-swimlane .k-swimlane-head {
+  box-shadow: 0 2px 2px #aaa;
+  background: #FFB200;
+  padding: 10px 20px;
+}
+.k-board .k-swimlane .k-swimlane-head h2 {
+  margin: 0;
+  padding: 0;
+}
+.k-board .k-swimlane .k-swimlane-body {
+  padding: 20px 0;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status {
+  float: left;
+  padding: 0 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status:first-child {
+  border-left: none;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status.over .k-tasks {
+  background: #FFEFCC;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status a.create-task {
+  text-decoration: none;
+  color: #2DB27C;
+  margin: 10px 0;
+  display: block;
+  visibility: hidden;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status a.create-task:hover {
+  text-decoration: underline;
+  color: #0b905a;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status:hover a.create-task {
+  visibility: visible;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks {
+  min-height: 100px;
+  transition: background-color 0.2s ease;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks .k-task {
+  background: #fff;
+  border-radius: 3px;
+  border: solid 1px #aaa;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  -webkit-user-select: none;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks .k-task .deadline-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: url('/images/deadline-indicator.jpg') no-repeat;
+  background-position: 100% center;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks .k-task .task-menu {
+  display: none;
+  position: absolute;
+  bottom: -23px;
+  height: 25px;
+  left: -1px;
+  margin-top: 20px;
+  width: 100%;
+  background: #fff;
+  border-left: solid 1px #aaa;
+  border-bottom: solid 1px #aaa;
+  border-right: solid 1px #aaa;
+  border-radius: 0 0 3px 3px;
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks .k-task .task-menu a {
+  margin: 3px 10px;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks .k-task .task-menu a:hover {
+  color: #FFB200;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks .k-task:hover {
+  z-index: 1;
+  box-shadow: 2px 2px 3px #ccc;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks .k-task:hover .task-menu {
+  box-shadow: 2px 2px 3px #ccc;
+  display: block;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks .k-task .task-id {
+  float: right;
+  margin-left: 10px;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks .k-task h4 {
+  margin: 0;
+  display: block;
+  float: left;
+  overflow: hidden;
+}
+.k-board .k-swimlane .k-swimlane-body .k-status .k-tasks .k-task .assignee img {
+  width: 50px;
+  height: 50px;
+}
+md-dialog.task-modal form {
+  min-width: 500px;
+}
+md-dialog.task-modal md-dialog-content {
+  padding-top: 25px !important;
+}
