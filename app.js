@@ -9,6 +9,8 @@ var routes = require('./server/routes/index');
 var users = require('./server/routes/users');
 var board = require('./server/routes/board');
 
+var board = require('./server/routes/desk');
+
 var app = express();
 // app.config = require('./config');
 //
